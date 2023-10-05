@@ -1,0 +1,6 @@
+Equipo: BET
+idEquipo: 4
+Ciudad: Sevilla
+NombreEquipo: Betis
+Puntos: 91
+Liga: 1

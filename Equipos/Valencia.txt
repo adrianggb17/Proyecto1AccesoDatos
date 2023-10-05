@@ -1,0 +1,6 @@
+Equipo: VCF
+idEquipo: 3
+Ciudad: Valencia
+NombreEquipo: Valencia_CF
+Puntos: 75
+Liga: 1

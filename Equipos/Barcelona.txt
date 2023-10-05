@@ -1,0 +1,6 @@
+Equipo: FCB
+idEquipo: 2
+Ciudad: Barcelona
+NombreEquipo: FC_Barcelona
+Puntos: 100
+Liga: 1

@@ -1,0 +1,6 @@
+Equipo: ATH 
+idEquipo: 5
+Ciudad: Bilbao
+NombreEquipo: Athletic_Bilbao
+Puntos: 33
+Liga: 1

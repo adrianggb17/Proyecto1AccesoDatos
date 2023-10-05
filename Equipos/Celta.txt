@@ -1,0 +1,6 @@
+Equipo: CEL 
+idEquipo: 8
+Ciudad: Vigo
+NombreEquipo: CeltaVigo
+Puntos: 52
+Liga: 2

@@ -1,0 +1,6 @@
+Equipo: RMA 
+idEquipo: 1
+Ciudad: Madrid
+NombreEquipo: RealMadrid
+Puntos: 114
+Liga: 1

@@ -1,0 +1,6 @@
+Equipo: ZAR 
+idEquipo: 6
+Ciudad: Zaragoza
+NombreEquipo: Zaragoza_CF
+Puntos: 79
+Liga: 2

@@ -1,0 +1,6 @@
+Equipo: RCF 
+idEquipo: 7
+Ciudad: Santander
+NombreEquipo: Racing_CF
+Puntos: 26
+Liga: 2
