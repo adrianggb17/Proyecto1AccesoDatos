@@ -17,7 +17,8 @@ public class crearFicherosTexto {
     final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     public static void main(String[]args){
         BufferedWriter bfw = null;
-        String ruta = "Equipo.txt";
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String ruta = "";
         File f =  new File(ruta);
         int id=1;
         String nombre="";
@@ -32,7 +33,7 @@ public class crearFicherosTexto {
             bfw.write(id);
             bfw.write(nombre);//Esto va aparte
             bfw.write(puntos);
-             bfw.write(liga);
+            bfw.write(liga);
             
         }catch (FileNotFoundException fn) {
             System.out.println("No se encuentra el fichero en la ruta indicada");

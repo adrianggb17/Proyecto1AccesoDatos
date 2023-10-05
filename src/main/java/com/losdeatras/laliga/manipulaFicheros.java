@@ -33,12 +33,13 @@ public class manipulaFicheros {
                
     }
     
-    public void moverFichero(File f, File ruta){
+    public void moverFichero(File f, File ruta) throws IOException{
         if(f.exists()){
             File fAux = f;
         if(ruta.exists()){
             String route = f.getAbsolutePath();
             f = new File(f,route);
+            f.createNewFile();
         }else{
             System.out.println("La ruta indicada no existe");
         }
