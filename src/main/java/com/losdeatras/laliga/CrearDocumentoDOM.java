@@ -49,7 +49,7 @@ public class CrearDocumentoDOM {
             doc.appendChild(rootElement);
 
             Element entrenador;
-            entrenador = CrearDocumentoDOM.createNodeEntrenador(doc, new Entrenador("060", "Jose", "50"));
+            entrenador = CrearDocumentoDOM.createNodeEntrenador(doc, new Entrenador(060, "Jose", 50));
             rootElement.appendChild(entrenador);
 
             
@@ -65,15 +65,15 @@ public class CrearDocumentoDOM {
             nodeEntrenador = doc.createElement(ENTRENADOR);
 
             Element identre = doc.createElement(IDENTRENADOR);
-            identre.appendChild(doc.createTextNode(entrenador.getIDENTRENADOR()));
+            identre.appendChild(doc.createTextNode(Integer.toString(entrenador.getIdEntrenador())));
             nodeEntrenador.appendChild(identre);
             
             Element nombreEntre = doc.createElement(NOMBREENTRENADOR);
-            nombreEntre.appendChild(doc.createTextNode(entrenador.getNOMBREENTRENADOR()));
+            nombreEntre.appendChild(doc.createTextNode(entrenador.getNombre()));
             nodeEntrenador.appendChild(nombreEntre);
             
             Element edad = doc.createElement(EDAD);
-            edad.appendChild(doc.createTextNode(entrenador.getEDAD()));
+            edad.appendChild(doc.createTextNode(Integer.toString(entrenador.getEdad())));
             nodeEntrenador.appendChild(edad);
 
         } catch (DOMException e) {

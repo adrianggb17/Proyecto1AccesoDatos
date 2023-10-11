@@ -53,7 +53,8 @@ public class LecturaXmlDOM {
                 Node nodoEntrenador = listaNodosEntrenadores.item(i);
                 if (nodoEntrenador != null && nodoEntrenador.getNodeType() == Node.ELEMENT_NODE) {
                     Element eEntrenador = (Element) nodoEntrenador;
-                    eEntrenador.getAttribute(LecturaXmlDOM.IDENTRENADOR);
+                    
+                    eEntrenador.getElementsByTagName(LecturaXmlDOM.IDENTRENADOR).item(0).getTextContent();
                     eEntrenador.getElementsByTagName(LecturaXmlDOM.NOMBREENTRENADOR).item(0).getTextContent();
                     eEntrenador.getElementsByTagName(LecturaXmlDOM.EDAD).item(0).getTextContent();
 
