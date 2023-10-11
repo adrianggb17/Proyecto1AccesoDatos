@@ -1,0 +1,6 @@
+Equipo: mgt
+idEquipo: 34
+Ciudad: ciudadreal
+NombreEquipo: miguelturra.txt
+Puntos: 30
+Liga: 1
