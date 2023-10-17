@@ -37,6 +37,9 @@ public class LecturaXmlDOM {
     private static final String EDAD = "EDAD";
     
      public static void main(String[] args) {
+         int edad,id;
+         String nombre;
+         
         // Recuperación del archivo de propiedades para su posterior trabajo
         try {
             LecturaXmlDOM.myProperties.load(new FileInputStream("entrenadores_prj.properties"));
@@ -54,11 +57,11 @@ public class LecturaXmlDOM {
                 if (nodoEntrenador != null && nodoEntrenador.getNodeType() == Node.ELEMENT_NODE) {
                     Element eEntrenador = (Element) nodoEntrenador;
                     
-                    eEntrenador.getElementsByTagName(LecturaXmlDOM.IDENTRENADOR).item(0).getTextContent();
-                    eEntrenador.getElementsByTagName(LecturaXmlDOM.NOMBREENTRENADOR).item(0).getTextContent();
-                    eEntrenador.getElementsByTagName(LecturaXmlDOM.EDAD).item(0).getTextContent();
+                    id = Integer.parseInt(eEntrenador.getElementsByTagName(LecturaXmlDOM.IDENTRENADOR).item(0).getTextContent());
+                    nombre = eEntrenador.getElementsByTagName(LecturaXmlDOM.NOMBREENTRENADOR).item(0).getTextContent();
+                    edad = Integer.parseInt (eEntrenador.getElementsByTagName(LecturaXmlDOM.EDAD).item(0).getTextContent());
 
-                    Entrenador entrenador = new Entrenador (IDENTRENADOR, NOMBREENTRENADOR, EDAD);
+                    Entrenador entrenador = new Entrenador (id, nombre, edad);
                     System.out.println(entrenador);
                     }
                 }
