@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.List;
 import java.util.Scanner;
 import javax.xml.bind.JAXBContext;
@@ -121,6 +122,46 @@ public class Laliga {
             e.printStackTrace();
         }
     }
+    
+    public void FicheroDat (){
+
+            String nombreArchivo = "datosAleatorios.dat";
+            Scanner scanner = new Scanner(System.in);
+
+            try {
+                // Crear un archivo para acceso aleatorio en modo de lectura y escritura
+                RandomAccessFile archivo = new RandomAccessFile(nombreArchivo, "rw");
+
+                // Solicitar datos por consola
+                System.out.print("Ingrese un entero: ");
+                int entero = scanner.nextInt();
+                scanner.nextLine(); // Limpiar el búfer de entrada
+                System.out.print("Ingrese una cadena: ");
+                String cadena = scanner.nextLine();
+
+                // Escribir datos en el archivo en ubicaciones específicas
+                archivo.writeInt(entero);                  
+                archivo.writeUTF(cadena);                 
+
+                // Leer datos desde ubicaciones específicas
+                archivo.seek(0);
+                int enteroLeido = archivo.readInt();
+                archivo.seek(12);
+                String stringLeido = archivo.readUTF();
+
+                // Mostrar los datos leídos
+                System.out.println("Entero leído: " + enteroLeido);
+                System.out.println("String leído: " + stringLeido);
+
+                // Cerrar el archivo
+                archivo.close();
+                scanner.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
 
     public static void main(String[] args) {
         Laliga helper = new Laliga();
@@ -140,7 +181,9 @@ public class Laliga {
             System.out.println("2. Ver Jugadores");
             System.out.println("3. Ver Entrenadores");
             System.out.println("4. Crear Equipo");
-            System.out.println("5. Salir");
+            System.out.println("5. Crear fichero aleatorio");
+            System.out.println("6. Dom");
+            System.out.println("7. Salir");
             opcion = sc.nextInt();
 
             switch (opcion) {
@@ -180,8 +223,13 @@ public class Laliga {
 
                     helper.anadirEquipos(abreviatura, idEquipo, ciudad, nombreEquipo, puntos, liga);
                     break;
-
                 case 5:
+                    helper.FicheroDat();
+                    break;
+                case 6:
+                    
+                    break;
+                case 7:
                     salir = true;
                     break;
             }
