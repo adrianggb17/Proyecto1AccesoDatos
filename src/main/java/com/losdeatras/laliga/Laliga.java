@@ -14,6 +14,12 @@ import java.util.Scanner;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  *
@@ -161,7 +167,10 @@ public class Laliga {
                 e.printStackTrace();
             }
         }
-
+    
+    public void XMLtoHTMLConverter() {
+    
+    }
 
     public static void main(String[] args) {
         Laliga helper = new Laliga();
@@ -227,7 +236,6 @@ public class Laliga {
                     helper.FicheroDat();
                     break;
                 case 6:
-                    
                     break;
                 case 7:
                     salir = true;
