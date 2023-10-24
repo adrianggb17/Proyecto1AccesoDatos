@@ -191,7 +191,7 @@ public class Laliga {
     
     private void XMLtoHTMLConverter(){
         try {
-            File xmlFile = new File("Equipos/");
+            File xmlFile = new File("Jugadores/010.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(xmlFile);
@@ -236,7 +236,7 @@ public class Laliga {
             System.out.println("3. Ver Entrenadores");
             System.out.println("4. Crear Equipo");
             System.out.println("5. Crear fichero aleatorio");
-            System.out.println("6. Convertir ");
+            System.out.println("6. Convertir XML a HTML");
             System.out.println("7. Salir");
             opcion = sc.nextInt();
 
