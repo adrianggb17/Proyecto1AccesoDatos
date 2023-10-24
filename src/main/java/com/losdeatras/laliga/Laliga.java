@@ -168,8 +168,53 @@ public class Laliga {
             }
         }
     
-    public void XMLtoHTMLConverter() {
+    private static void convertirXMLaHTML(Node node, FileWriter htmlFile) throws IOException {
+        
+        try {
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+            Element element = (Element) node;
+            htmlFile.write("<p>");
+            NodeList children = element.getChildNodes();
+            for (int i = 0; i < children.getLength(); i++) {
+                convertirXMLaHTML(children.item(i), htmlFile);
+            }
+            htmlFile.write("</p>");
+        } else if (node.getNodeType() == Node.TEXT_NODE) {
+            htmlFile.write(node.getTextContent());
+        }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+    }
     
+    private void XMLtoHTMLConverter(){
+        try {
+            File xmlFile = new File("Equipos/");
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(xmlFile);
+            
+            FileWriter htmlFile = new FileWriter("Equipos/");
+            
+            Element rootElement = doc.getDocumentElement();            
+            htmlFile.write("""
+                           <html>
+                           <title>Archivo XML a HTML</title>
+                           <body>
+                           """);            
+            convertirXMLaHTML(rootElement, htmlFile);            
+            htmlFile.write("""
+                           
+                           </body>
+                           </html>""");
+            htmlFile.close();
+
+            System.out.println("El archivo HTML se ha generado correctamente.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
@@ -191,7 +236,7 @@ public class Laliga {
             System.out.println("3. Ver Entrenadores");
             System.out.println("4. Crear Equipo");
             System.out.println("5. Crear fichero aleatorio");
-            System.out.println("6. Dom");
+            System.out.println("6. Convertir ");
             System.out.println("7. Salir");
             opcion = sc.nextInt();
 
@@ -236,6 +281,7 @@ public class Laliga {
                     helper.FicheroDat();
                     break;
                 case 6:
+                    helper.XMLtoHTMLConverter();
                     break;
                 case 7:
                     salir = true;
