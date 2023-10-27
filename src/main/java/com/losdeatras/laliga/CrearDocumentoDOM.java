@@ -22,7 +22,7 @@ import org.w3c.dom.Element;
  */
 public class CrearDocumentoDOM {
     
-    private static final Properties myProperties = new Properties();
+    static final Properties myProperties = new Properties();
     
     private static final String ENTRENADOR = "ENTRENADOR";
     private static final String IDENTRENADOR = "IDENTRENADOR";
@@ -58,7 +58,7 @@ public class CrearDocumentoDOM {
             throw e;
         }
     }
-     private static Element createNodeEntrenador(Document doc, Entrenador entrenador) throws DOMException {
+     static Element createNodeEntrenador(Document doc, Entrenador entrenador) throws DOMException {
         // nodo donde colgaremos todos los datos de un libro
         Element nodeEntrenador = null;
         try {

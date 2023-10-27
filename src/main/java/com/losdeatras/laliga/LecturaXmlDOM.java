@@ -28,13 +28,13 @@ import org.xml.sax.SAXException;
  */
 public class LecturaXmlDOM {
     
-    private static final Properties myProperties = new Properties();
+    static final Properties myProperties = new Properties();
 
     //Declaro las constantes de mi xlm
     private static final String ENTRENADOR = "ENTRENADOR";
-    private static final String IDENTRENADOR = "IDENTRENADOR";
-    private static final String NOMBREENTRENADOR = "NOMBRENTREN";
-    private static final String EDAD = "EDAD";
+    static final String IDENTRENADOR = "IDENTRENADOR";
+    static final String NOMBREENTRENADOR = "NOMBRENTREN";
+    static final String EDAD = "EDAD";
     
      public static void main(String[] args) {
          int edad,id;

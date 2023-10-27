@@ -5,17 +5,21 @@ import com.losdeatras.laliga.Jugador;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.List;
+import java.util.Properties;
 import java.util.Scanner;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -28,6 +32,12 @@ import org.w3c.dom.NodeList;
 public class Laliga {
 
     static Scanner sc = new Scanner(System.in);
+    private static final Properties myProperties = new Properties();
+    
+    private static final String ENTRENADOR = "ENTRENADOR";
+    private static final String IDENTRENADOR = "IDENTRENADOR";
+    private static final String NOMBREENTRENADOR = "NOMBRENTREN";
+    private static final String EDAD = "EDAD";
 
     public void verEquipos() {
 
@@ -216,7 +226,98 @@ public class Laliga {
             e.printStackTrace();
         }
     }
+    private void crearDocumentoDOM(){
+        
+        try {
+            CrearDocumentoDOM.myProperties.load(new FileInputStream("libros_prj.properties"));
+        } catch (IOException e) {
+            System.out.println("No se pueden cargar la inicialización del programa. Saliendo...");
+            System.exit(100);
+        }
 
+        String fichero_original = CrearDocumentoDOM.myProperties.getProperty("xml_path.old");
+
+        Document doc = null;
+        try {
+            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+            doc = docBuilder.newDocument();
+            Element rootElement = doc.createElement(ENTRENADOR);
+            doc.appendChild(rootElement);
+
+            Element entrenador;
+            entrenador = CrearDocumentoDOM.createNodeEntrenador(doc, new Entrenador(060, "Jose", 50));
+            rootElement.appendChild(entrenador);
+
+            
+        } catch (ParserConfigurationException | DOMException e) {
+            System.out.println(e.getLocalizedMessage());
+        }
+    }
+    static Element createNodeEntrenador(Document doc, Entrenador entrenador) throws DOMException {
+        // nodo donde colgaremos todos los datos de un libro
+        Element nodeEntrenador = null;
+        try {
+            nodeEntrenador = doc.createElement(ENTRENADOR);
+
+            Element identre = doc.createElement(IDENTRENADOR);
+            identre.appendChild(doc.createTextNode(Integer.toString(entrenador.getIdEntrenador())));
+            nodeEntrenador.appendChild(identre);
+            
+            Element nombreEntre = doc.createElement(NOMBREENTRENADOR);
+            nombreEntre.appendChild(doc.createTextNode(entrenador.getNombre()));
+            nodeEntrenador.appendChild(nombreEntre);
+            
+            Element edad = doc.createElement(EDAD);
+            edad.appendChild(doc.createTextNode(Integer.toString(entrenador.getEdad())));
+            nodeEntrenador.appendChild(edad);
+
+        } catch (DOMException e) {
+            System.out.println(e.getLocalizedMessage());
+            throw e;
+        }
+
+        return nodeEntrenador;
+    }
+    
+    private void lecturaXMLDOM(){
+         int edad,id;
+         String nombre;
+         
+        // Recuperación del archivo de propiedades para su posterior trabajo
+        try {
+            LecturaXmlDOM.myProperties.load(new FileInputStream("entrenadores_prj.properties"));
+            
+            org.w3c.dom.Document doc = null; 
+
+            System.out.println("Recuperación de la información de los entrenadores");
+            
+            Node raiz = doc.getFirstChild();
+            NodeList listaNodosEntrenadores = raiz.getChildNodes();
+
+            for (int i = 0; i < listaNodosEntrenadores.getLength(); i++) {
+                
+                Node nodoEntrenador = listaNodosEntrenadores.item(i);
+                if (nodoEntrenador != null && nodoEntrenador.getNodeType() == Node.ELEMENT_NODE) {
+                    Element eEntrenador = (Element) nodoEntrenador;
+                    
+                    id = Integer.parseInt(eEntrenador.getElementsByTagName(LecturaXmlDOM.IDENTRENADOR).item(0).getTextContent());
+                    nombre = eEntrenador.getElementsByTagName(LecturaXmlDOM.NOMBREENTRENADOR).item(0).getTextContent();
+                    edad = Integer.parseInt (eEntrenador.getElementsByTagName(LecturaXmlDOM.EDAD).item(0).getTextContent());
+
+                    Entrenador entrenador = new Entrenador (id, nombre, edad);
+                    System.out.println(entrenador);
+                    }
+                }
+        } catch (IOException e) {
+            System.out.println("No se pueden cargar la inicialización del programa. Saliendo...");
+            System.exit(100);
+             
+        }
+        
+        String fichero_original = LecturaXmlDOM.myProperties.getProperty("xml_path.old");
+           
+    }
     public static void main(String[] args) {
         Laliga helper = new Laliga();
         int opcion;
@@ -237,7 +338,9 @@ public class Laliga {
             System.out.println("4. Crear Equipo");
             System.out.println("5. Crear fichero aleatorio");
             System.out.println("6. Convertir XML a HTML");
-            System.out.println("7. Salir");
+            System.out.println("7. Crear documento DOM");
+            System.out.println("8. Lectura XML DOM");
+            System.out.println("9. Salir");
             opcion = sc.nextInt();
 
             switch (opcion) {
@@ -284,6 +387,12 @@ public class Laliga {
                     helper.XMLtoHTMLConverter();
                     break;
                 case 7:
+                    helper.crearDocumentoDOM();
+                    break;
+                case 8:
+                    helper.lecturaXMLDOM();
+                    break;
+                case 9:
                     salir = true;
                     break;
             }
