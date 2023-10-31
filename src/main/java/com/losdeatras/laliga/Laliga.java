@@ -10,6 +10,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
@@ -327,7 +329,8 @@ public class Laliga {
         int idEquipo;
         int liga;
         int puntos;
-        String ciudad;
+        String ciudad, ruta;
+        String rutaO = "", rutaD = "";
 
         do {
 
@@ -340,7 +343,10 @@ public class Laliga {
             System.out.println("6. Convertir XML a HTML");
             System.out.println("7. Crear documento DOM");
             System.out.println("8. Lectura XML DOM");
-            System.out.println("9. Salir");
+            System.out.println("9. Mover fichero");
+            System.out.println("10. Copiar fichero");
+            System.out.println("11. Eliminar fichero");
+            System.out.println("12. Salir");
             opcion = sc.nextInt();
 
             switch (opcion) {
@@ -393,9 +399,82 @@ public class Laliga {
                     helper.lecturaXMLDOM();
                     break;
                 case 9:
+
+                    System.out.println("Introduce la ruta de origen del fichero que deseas mover");
+                    rutaO = sc.nextLine();
+                     System.out.println("Introduce la ruta de destino del fichero que deseas mover");
+                    rutaD = sc.nextLine();
+                    helper.moverFichero(rutaO,rutaD);
+                    break;
+                case 10:
+                    System.out.println("Introduce la ruta de origen del fichero que deseas copiar");
+                    rutaO = sc.nextLine();
+                     System.out.println("Introduce la ruta de destino del fichero que deseas copiar");
+                    rutaD = sc.nextLine();
+                    helper.copiarFichero(rutaO,rutaD);
+                    break;
+                case 11:
+                    System.out.println("Introduce la ruta del fichero que deseas eliminar");
+                    ruta = sc.nextLine();
+                    helper.eliminarFichero("Equipos\\Betis.txt");
+                    break;
+                case 12:
                     salir = true;
                     break;
             }
         } while (salir != true);
+    }
+    /**
+     * Miguel Herreros
+     * @param rutaArchivo 
+     */
+    public static void eliminarFichero(String rutaArchivo) {
+        // Crea un objeto File para representar el archivo a eliminar
+        try {
+            File archivoAEliminar = new File(rutaArchivo);
+
+            // Utiliza Files.delete() para eliminar el archivo
+            Files.delete(archivoAEliminar.toPath());
+            System.out.println("Archivo eliminado exitosamente: " + rutaArchivo);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Error al eliminar el archivo: " + rutaArchivo);
+        }
+    }
+    /**
+     * Miguel Herreros
+     * @param rutaArchivo 
+     */
+    public static void copiarFichero(String rutaOrigen, String rutaDestino){
+try {
+        // Crea objetos File para el archivo original y de destino
+        File archivoOrigen = new File(rutaOrigen);
+        File archivoDestino = new File(rutaDestino);
+
+        // Utiliza Files.copy() para copiar el archivo desde la ubicación original a la ubicación de destino
+        Files.copy(archivoOrigen.toPath(), archivoDestino.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        System.out.println("Archivo copiado exitosamente de " + rutaOrigen + " a " + rutaDestino);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Error al copiar el archivo.");
+        }
+    }
+    /**
+     * Miguel Herreros
+     * @param rutaArchivo 
+     */
+    public static void moverFichero(String origen, String destino){
+        File archivoOrigen = new File(origen);
+        File archivoDestino = new File(destino);
+        try {
+            // Mueve el archivo desde la ubicación original a la ubicación de destino
+            Files.move(archivoOrigen.toPath(), archivoDestino.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("Archivo movido exitosamente de " + origen + " a " + destino);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Error al mover el archivo.");
+        }
+        
+        
     }
 }
